@@ -1,6 +1,5 @@
 /********* PARAMETERS *********/
-const wallSelector = ".wall";
-const torchRadius = 250;
+const w_wallSelector = ".wall";
 const itemsNum = 200;
 const fonts = [
     "'Cinzel', serif",
@@ -25,7 +24,7 @@ function RandomInt(min, max) {
 }
 
 function Main() {
-    container = document.querySelector(wallSelector);
+    container = document.querySelector(w_wallSelector);
     for (let i = 0; i < itemsNum; i++) {
         let newA = document.createElement("a");
         newA.innerHTML = "Verità";

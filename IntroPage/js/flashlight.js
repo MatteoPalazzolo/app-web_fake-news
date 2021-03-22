@@ -1,5 +1,5 @@
 /********* PARAMETERS *********/
-const wallSelector = ".wall";
+const f_wallSelector = ".wall";
 const torchRadius = 250;
 
 /********* REFERENCES *********/
@@ -10,7 +10,7 @@ let isTorchEnable = false;
 
 /********* CODE *********/
 window.addEventListener("load", () => {
-    wall = document.querySelector(wallSelector);
+    wall = document.querySelector(f_wallSelector);
 });
 
 window.addEventListener("scroll", e => {
