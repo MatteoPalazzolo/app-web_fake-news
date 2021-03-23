@@ -1,9 +1,8 @@
 /********* PARAMETERS *********/
 const f_wallSelector = ".wall";
-const torchRadius = 250;
 
 /********* REFERENCES *********/
-let wall = document.createElement("div");
+let wall;
 
 /********* STATES *********/
 let isTorchEnable = false;
@@ -11,20 +10,72 @@ let isTorchEnable = false;
 /********* CODE *********/
 window.addEventListener("load", () => {
     wall = document.querySelector(f_wallSelector);
+
+    SetupEventListeners();
 });
 
-window.addEventListener("scroll", e => {
-    SetTorchlightPosition(GetMousePos(undefined));
-});
+let touchtime = 0;
+let delay = 400;
+let action = null;
+function SetupEventListeners() {    
+    if (isMobile) {
+        window.addEventListener("click", e => {
+            torchRadius = mobile_torchRadius;
 
-window.addEventListener("mousemove", e => {
-    SetTorchlightPosition(GetMousePos(e));
-});
+            /*Double Click */
+            if ((new Date().getTime() - touchtime) < delay) {
+                clearTimeout(action);
 
-window.addEventListener("mousedown", e => {
-    if (e.button === 2) isTorchEnable = !isTorchEnable;
-    SetTorchlightPosition(GetMousePos(undefined));
-});
+                isTorchEnable = !isTorchEnable;
+                
+                touchtime = 0;
+            }
+            /* Single Click */
+            else {
+                touchtime = new Date().getTime();
+            
+                action = setTimeout(() => {
+                    //single click
+                },  delay);
+            }
+            
+            SetTorchlightPosition(GetMousePos(e));
+
+        });
+
+        window.addEventListener("touchmove", e => {
+            console.log(e);
+            SetTorchlightPosition(GetTouchMovePos(e));
+        });
+    }
+    else {
+        torchRadius = pc_torchRadius;
+
+        window.addEventListener("scroll", e => {
+            SetTorchlightPosition(GetMousePos(undefined));
+        });
+        
+        window.addEventListener("mousemove", e => {
+            SetTorchlightPosition(GetMousePos(e));
+        });
+        
+        window.addEventListener("mousedown", e => {
+            if (e.button === 2) isTorchEnable = !isTorchEnable;
+            SetTorchlightPosition(GetMousePos(undefined));
+        });
+    }
+}
+
+function GetTouchMovePos(e) {
+    let mousePos;
+    if (e) {
+        mousePos = {x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY};
+    }
+    else {
+        mousePos = {x: window.event.changedTouches[0].clientX, y: window.event.changedTouches[0].clientY};
+    }
+    return mousePos;
+}
 
 function GetMousePos(e) {
     let mousePos;

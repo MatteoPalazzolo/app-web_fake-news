@@ -16,10 +16,13 @@ body {
     user-select: none;
 }
 
-body, html {
+body, html, .wall, .darkness {
 	position: relative;
-    overflow-x: hidden;
+    overflow: hidden;
     background-color: #000;
+
+    min-width: 100vw;
+    min-height: 100vh;
 }
 /*
 .pointer {
