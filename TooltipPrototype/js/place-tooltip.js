@@ -6,12 +6,14 @@ let pointer;
 
 /********* STATES *********/
 let cursorSize;
-let cursorOffset = {x: -0, y: -0};
+let windowSize;
+let cursorOffset = {x: 10, y: 10};
 
 window.addEventListener("load", () => {
     pointer = document.querySelector(pointerSelector);
-    let pointRect = pointer.getBoundingClientRect();
-    cursorSize = {x: pointRect.right - pointRect.left, y: pointRect.bottom - pointRect.top};
+    cursorSize = GetSize(pointer);
+    bodySize = GetSize(document.body);
+    windowSize = {x: window.innerWidth, y: window.innerHeight}
 });
 
 window.addEventListener("mousemove", e => {
@@ -21,12 +23,19 @@ window.addEventListener("mousemove", e => {
 
 function GetCursorPos(e) {
     let cursorPos = {x: e.pageX, y: e.pageY};
-    /*
-    cursorPos.x -= cursorSize.x/2;
-    cursorPos.y -= cursorSize.y/2;*/
-    cursorPos.x += cursorOffset.x;
-    cursorPos.y += cursorOffset.y - cursorSize.y;
-    return cursorPos;
+    let newPos = cursorPos;
+
+    if (cursorPos.x < windowSize.x/2)
+        newPos.x += cursorOffset.x;
+    else
+        newPos.x -= cursorSize.x + cursorOffset.x;
+
+    if (cursorPos.y < windowSize.y/2)
+        newPos.y += cursorOffset.y;
+    else
+        newPos.y -= cursorSize.y + cursorOffset.y;
+
+    return newPos;
 }
 
 function SetPointerPosition(cursorPos) {
@@ -34,6 +43,12 @@ function SetPointerPosition(cursorPos) {
     pointer.style.top = cursorPos.y + "px";
 }
 
+function GetSize(element) {
+    let elementRect = element.getBoundingClientRect();
+    return {x: elementRect.right - elementRect.left, y: elementRect.bottom - elementRect.top}
+}
+
+/*
 function CheckOutOfScreen(item) {
     let bounding = item.getBoundingClientRect();
 
@@ -46,4 +61,4 @@ function CheckOutOfScreen(item) {
 	out.all = out.top && out.left && out.bottom && out.right;
 
 	return out;
-}
+}*/

@@ -29,7 +29,8 @@ function BuildTooltip(event) {
         target = undefined;
         tooltip = undefined;
     }
-    console.log(tooltip);
+    //DEBUG
+    //tooltip = {text: "ciao"};
 }
 
 function SetTooltip() {
