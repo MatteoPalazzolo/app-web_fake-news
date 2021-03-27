@@ -92,11 +92,13 @@ function SetTorchlightPosition(cursorPos) {
     let path;
     if (isTorchEnable) {
         path = "circle(" + torchRadius + "px at " + cursorPos.x + "px " + cursorPos.y + "px)";
-        wall.style.filter = "opacity(100%)";
+        pointer.style.opacity = "100%";
+        wall.style.opacity = "100%";
     }
     else {
         path = "";
-        wall.style.filter = "opacity(0%)";
+        pointer.style.opacity = "0%";
+        wall.style.opacity = "0%";
     }
     wall.style.clipPath = path;
 }

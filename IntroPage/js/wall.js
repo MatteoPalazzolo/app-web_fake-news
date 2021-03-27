@@ -18,6 +18,7 @@ let container = document.createElement("div");
 window.addEventListener("load", () => {
     container = document.querySelector(w_wallSelector);
     BuildHTML();
+    //RemoveOutOfScreen();
     ChoseItem();
 });
 
@@ -47,7 +48,7 @@ function RemoveOutOfScreen() {
 }*/
 
 function ChoseItem() {
-    let chosen
+    let chosen;
     while (true) {
         chosen = container.children[RandomInt(0, container.childElementCount)];
         if (!CheckOutOfScreen(chosen)) break;

@@ -2,7 +2,7 @@
 const mobile_torchRadius = 100;
 const mobile_itemsNum = 30;
 
-const pc_torchRadius = 250;
+const pc_torchRadius = 240;
 const pc_itemsNum = 200;
 
 let torchRadius;
