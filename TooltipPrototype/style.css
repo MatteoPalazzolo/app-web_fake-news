@@ -11,28 +11,3 @@ html, body {
     margin-top: 100px;
     font-size: 2em;
 }
-
-.tooltipBox {
-    pointer-events: none;    
-
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    opacity: 0;
-
-    background-color: #fff;
-    width: 300px;
-    height: 200px;
-    border-radius: 12px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
-}
-
-.tooltipBox p {
-    text-align: center;
-    font-size: 2em;
-}
-
-.tooltip {
-    text-decoration: underline;
-    cursor: url(cursor/detective_icon2.png) 28 18, default; /* Quando è vicino al bordo va in default */
-}
