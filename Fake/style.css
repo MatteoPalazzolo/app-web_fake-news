@@ -17,8 +17,7 @@ img {
 }
 
 html, body {
-    background-color: rgb(206, 206, 206);
-    overflow-x: hidden;
+    background-color: #000;
 }
 
 .page {

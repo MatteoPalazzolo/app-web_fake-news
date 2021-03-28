@@ -1,14 +1,14 @@
 /****************** IMPORT SOUNDS ******************/
-const music = {audio: new Audio("../sound/music.mp3"), playing: false};
+const music = {audio: new Audio("sound/music.mp3"), playing: false};
 music.audio.volume = .1;
 
-const wrong_SFX = {audio: new Audio("../sound/wrong-violin.wav"), playing: false};
-const right_SFX = {audio: new Audio("../sound/right-violin.wav"), playing: false};
+const wrong_SFX = {audio: new Audio("sound/wrong-violin.wav"), playing: false};
+const right_SFX = {audio: new Audio("sound/right-violin.wav"), playing: false};
 wrong_SFX.audio.volume = 1;
 right_SFX.audio.volume = 1;
 
-const torchOn_SFX = {audio: new Audio("../sound/torch-on.wav"), playing: false};
-const torchOff_SFX = {audio: new Audio("../sound/torch-off.wav"), playing: false};
+const torchOn_SFX = {audio: new Audio("sound/torch-on.wav"), playing: false};
+const torchOff_SFX = {audio: new Audio("sound/torch-off.wav"), playing: false};
 torchOn_SFX.audio.volume = .25;
 torchOff_SFX.audio.volume = .25;
 
