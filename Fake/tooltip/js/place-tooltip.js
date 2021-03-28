@@ -1,5 +1,5 @@
 /********* PARAMETERS *********/
-const pointerSelector = ".tooltipBox";
+const pointerSelector = ".tooltip-box";
 
 /********* REFERENCES *********/
 let pointer;
@@ -13,17 +13,18 @@ window.addEventListener("load", () => {
     pointer = document.querySelector(pointerSelector);
     cursorSize = GetSize(pointer);
     bodySize = GetSize(document.body);
-    windowSize = {x: window.innerWidth, y: window.innerHeight}
+    windowSize = {x: document.documentElement.clientWidth, y: document.documentElement.clientHeight};
+    console.log(windowSize);
 });
 
 window.addEventListener("mousemove", e => {
-    let event = e ? e : window.event;
+    let event = e.clientY ? e : window.event;
     SetPointerPosition(GetCursorPos(event));
 });
 
 function GetCursorPos(e) {
-    let cursorPos = {x: e.pageX, y: e.pageY};
-    let newPos = cursorPos;
+    let cursorPos = {x: e.clientX, y: e.clientY};
+    let newPos ={x: e.pageX, y: e.pageY};
 
     if (cursorPos.x < windowSize.x/2)
         newPos.x += cursorOffset.x;

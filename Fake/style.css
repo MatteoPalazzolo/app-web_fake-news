@@ -13,10 +13,12 @@
 
 img {
     filter: grayscale(100%);
+    z-index: 0;
 }
 
 html, body {
     background-color: rgb(206, 206, 206);
+    overflow-x: hidden;
 }
 
 .page {
@@ -115,3 +117,5 @@ header {
     margin: 0%;
     width: 100%;
 }
+
+/*@media()*/

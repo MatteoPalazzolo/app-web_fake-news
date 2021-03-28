@@ -1,5 +1,5 @@
 /*********** PARAMETERS ***********/
-const tooltipBoxSelector = ".tooltipBox";
+const tooltipBoxSelector = ".tooltip-box";
 const tooltipClass = "tooltip";
 
 /*********** REFERNCES ***********/
