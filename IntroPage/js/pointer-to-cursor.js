@@ -9,7 +9,6 @@ let cursorSize;
 
 window.addEventListener("load", () => {
     pointer = document.querySelector(pointerSelector);
-    console.log(pointer)
     
     cursorSize = {x: torchRadius*2 + 2, y: torchRadius*2 + 2}
     

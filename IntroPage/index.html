@@ -7,6 +7,7 @@
     <title>What's The Truth</title>
 
     <link rel="stylesheet" href="style.css">
+    <script src="js/sound.js"></script>
     <script src="js/manage-device.js"></script>
     <script src="js/pointer-to-cursor.js"></script>
     <script src="js/wall.js"></script>
@@ -15,12 +16,12 @@
 </head>
 <body oncontextmenu="return false;">
 
-    <div class="wall"></div>
+    <div class="wall" data-href="#"></div>
     
     <svg viewBox="0 0 1 1" class="pointer">
         <defs>
             <radialGradient id="gradient">
-                <stop offset="60%" stop-color="#FFF0"/>
+                <stop offset="50%" stop-color="#FFF0"/>
                 <stop offset="100%" stop-color="#000"/>
             </radialGradient>
         </defs>

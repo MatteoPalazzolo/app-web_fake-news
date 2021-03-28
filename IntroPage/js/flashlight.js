@@ -26,7 +26,7 @@ function SetupEventListeners() {
             if ((new Date().getTime() - touchtime) < delay) {
                 clearTimeout(action);
 
-                isTorchEnable = !isTorchEnable;
+                TurnTorch();
                 
                 touchtime = 0;
             }
@@ -60,10 +60,16 @@ function SetupEventListeners() {
         });
         
         window.addEventListener("mousedown", e => {
-            if (e.button === 2) isTorchEnable = !isTorchEnable;
+            if (e.button === 2) TurnTorch();
             SetTorchlightPosition(GetMousePos(undefined));
         });
     }
+}
+
+function TurnTorch() {
+    isTorchEnable = !isTorchEnable;
+    if (isTorchEnable) PlayAudio(torchOn_SFX);
+    else PlayAudio(torchOff_SFX);
 }
 
 function GetTouchMovePos(e) {
@@ -94,11 +100,13 @@ function SetTorchlightPosition(cursorPos) {
         path = "circle(" + torchRadius + "px at " + cursorPos.x + "px " + cursorPos.y + "px)";
         pointer.style.opacity = "100%";
         wall.style.opacity = "100%";
+        wall.style.pointerEvents = "auto";
     }
     else {
-        path = "";
+        path = "none";
         pointer.style.opacity = "0%";
         wall.style.opacity = "0%";
+        wall.style.pointerEvents = "none";
     }
     wall.style.clipPath = path;
 }

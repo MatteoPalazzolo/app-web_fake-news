@@ -9,14 +9,14 @@ const fonts = [
 ];
 
 /********* REFERENCES *********/
-let container = document.createElement("div");
+let w_wall = document.createElement("div");
 
 /********* STATES *********/
 
 
 /********* CODE *********/
 window.addEventListener("load", () => {
-    container = document.querySelector(w_wallSelector);
+    w_wall = document.querySelector(w_wallSelector);
     BuildHTML();
     //RemoveOutOfScreen();
     ChoseItem();
@@ -26,13 +26,18 @@ function RandomInt(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
 }
 
+function PlaySFX() {
+    PlayAudio(wrong_SFX);
+}
+
 function BuildHTML() {
     for (let i = 0; i < itemsNum; i++) {
         let newA = document.createElement("a");
         newA.innerHTML = "Verità";
         newA.style.fontFamily = fonts[RandomInt(0, fonts.length)];
+        newA.addEventListener("click", PlaySFX);
         //newA.style.fontSize = RandomInt(50,70) + "px";
-        container.appendChild(newA);
+        w_wall.appendChild(newA);
     }
 }
 /*
@@ -50,10 +55,12 @@ function RemoveOutOfScreen() {
 function ChoseItem() {
     let chosen;
     while (true) {
-        chosen = container.children[RandomInt(0, container.childElementCount)];
+        chosen = w_wall.children[RandomInt(0, w_wall.childElementCount)];
         if (!CheckOutOfScreen(chosen)) break;
     }
-    chosen.href = "http://matteopalazzolo.altervista.org/";
+    chosen.removeEventListener("click", PlaySFX);
+    chosen.addEventListener("click", () => PlayAudio(right_SFX));
+    chosen.href = w_wall.dataset.href;
     chosen.classList.add("chosen");
 }
 
