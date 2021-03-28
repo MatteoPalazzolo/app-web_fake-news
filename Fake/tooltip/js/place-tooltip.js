@@ -7,7 +7,7 @@ let pointer;
 /********* STATES *********/
 let cursorSize;
 let clientSize;
-let cursorOffset = {x: 10, y: 10};
+let cursorOffset = {x: 25, y: 40};
 
 window.addEventListener("load", () => {
     pointer = document.querySelector(pointerSelector);

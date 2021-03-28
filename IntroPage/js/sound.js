@@ -4,7 +4,7 @@ music.audio.volume = .1;
 
 const wrong_SFX = {audio: new Audio("sound/wrong-violin.wav"), playing: false};
 const right_SFX = {audio: new Audio("sound/right-violin.wav"), playing: false};
-wrong_SFX.audio.volume = 1;
+wrong_SFX.audio.volume = .2;
 right_SFX.audio.volume = 1;
 
 const torchOn_SFX = {audio: new Audio("sound/torch-on.wav"), playing: false};

@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;600&display=swap');
+
 .tooltip-box {
     pointer-events: none;    
 
@@ -6,18 +9,37 @@
     top: 20px;
     opacity: 0;
 
-    background-color: #fff;
     width: 300px;
     height: 200px;
-    border-radius: 12px;
-    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px;
 
     z-index: 10;
+    border-radius: 12px;
+    
+    background-color: #ccc;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 0px 10px 0px;
 }
 
-.tooltip-box p {
+.tooltip-box * {
     text-align: center;
+
+    padding: 10px;
+
+    font-family: 'Archivo', sans-serif;
     font-size: 2em;
+}
+
+.tooltip-box h2 {
+    font-size: 2.2em;
+    margin-top: 8px;
+    font-weight: 600;
+}
+
+.tooltip-box div {
+    padding: 0;
+    margin: 0 auto;
+    width: 90%;
+    height: 5px;
+    background-color: #000;
 }
 
 .tooltip {

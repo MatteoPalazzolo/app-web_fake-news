@@ -13,7 +13,10 @@
 
 img {
     filter: grayscale(100%);
-    z-index: 0;
+}
+
+p, h1, h2 {
+    filter: grayscale(100%);
 }
 
 html, body {
@@ -30,18 +33,18 @@ html, body {
 
 header {
     position: fixed;
-    padding-top: 12px;
+    padding-top: 8px;
 
     height: 80px;
     width: var(--page-width);
 
-    font-size: 40px;
+    font-size: 3em;
     font-weight: bold;
     text-align: center;
     z-index: 10;
 
     color: #000;
-    background-color: #eee;
+    background-color: #ccc;
 }
 
 .gray-zone {
@@ -52,9 +55,9 @@ header {
 .title-text {
     width: 80%;
     
-    font-size: 3em;
+    font-size: 3.5em;
     font-weight: 600;
-    margin-left: 10%;
+    margin-left: 70px;
 }
 
 .main-img {
@@ -71,7 +74,8 @@ header {
 }
 
 .text {
-    font-size: 1.2em;
+    text-align: justify;
+    font-size: 1.5em;
     padding-top: 0px;
     margin-left: 20px;
     margin-right: 30px;

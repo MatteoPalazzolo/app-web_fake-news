@@ -23,7 +23,7 @@ window.addEventListener("mousemove", e => {
 function BuildTooltip(event) {
     if (event.target.classList.contains(tooltipClass)) {
         target = event.target;
-        tooltip = {text: target.dataset.description};
+        tooltip = {title: target.dataset.title, text: target.dataset.description};
     }
     else {
         target = undefined;
@@ -35,10 +35,12 @@ function BuildTooltip(event) {
 
 function SetTooltip() {
     if (tooltip) {
+        tooltipBox.querySelector("h2").innerHTML = tooltip.title;
         tooltipBox.querySelector("p").innerHTML = tooltip.text;
         tooltipBox.style.opacity = "1";
     }
     else {
+        tooltipBox.querySelector("h2").innerHTML = "";
         tooltipBox.querySelector("p").innerHTML = "";
         tooltipBox.style.opacity = "0";
     }
