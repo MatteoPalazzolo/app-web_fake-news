@@ -1,6 +1,7 @@
 /****************** IMPORT SOUNDS ******************/
-const music = {audio: new Audio("sound/music.mp3"), playing: false};
-music.audio.volume = .1;
+const music = {audio: new Audio("sound/music3.wav"), playing: false};
+music.audio.volume = .3;
+music.audio.loop = true;
 
 const wrong_SFX = {audio: new Audio("sound/wrong-violin.wav"), playing: false};
 const right_SFX = {audio: new Audio("sound/right-violin.wav"), playing: false};
@@ -20,7 +21,6 @@ function PlayAudio(audio_obj, music=false) {
     if (!audio_obj.playing) {
         audio_obj.audio.play();
         audio_obj.playing = true;
-        if (music) audio_obj.audio.loop = true;
     }
     else {
         if (!music) {

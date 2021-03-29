@@ -98,15 +98,31 @@ function SetTorchlightPosition(cursorPos) {
     let path;
     if (isTorchEnable) {
         path = "circle(" + torchRadius + "px at " + cursorPos.x + "px " + cursorPos.y + "px)";
-        pointer.style.opacity = "100%";
-        wall.style.opacity = "100%";
-        wall.style.pointerEvents = "auto";
+        TorchOn();
     }
     else {
         path = "none";
-        pointer.style.opacity = "0%";
-        wall.style.opacity = "0%";
-        wall.style.pointerEvents = "none";
+        TorchOff();
     }
     wall.style.clipPath = path;
+}
+
+function TorchOn() {
+    if (!isTorchEnable) {
+        isTorchEnable = true;
+        PlayAudio(torchOn_SFX);
+    }
+    pointer.style.opacity = "100%";
+    wall.style.opacity = "100%";
+    wall.style.pointerEvents = "auto";
+}
+
+function TorchOff() {
+    if (isTorchEnable) {
+        isTorchEnable = false;
+        PlayAudio(torchOff_SFX);
+    }
+    pointer.style.opacity = "0%";
+    wall.style.opacity = "0%";
+    wall.style.pointerEvents = "none";
 }
