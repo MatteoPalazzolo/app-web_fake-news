@@ -1,22 +1,16 @@
 /********* PARAMETERS *********/
-const w_wallSelector = ".wall";
 const fonts = [
-    "'Cinzel', serif",
     "'Dancing Script', cursive",
     "'Grenze Gotisch', cursive",
     "'Sevillana', cursive",
     "'Great Vibes', cursive"
 ];
 
-/********* REFERENCES *********/
-let w_wall = document.createElement("div");
-
 /********* STATES *********/
 let level = 0;
 
 /********* CODE *********/
-window.addEventListener("load", () => {
-    w_wall = document.querySelector(w_wallSelector);
+window.addEventListener("load", () => {    
     BuildHTML();
     SetupLevel();
 });
@@ -36,11 +30,17 @@ function PlayWrongSFX() {
 function BuildHTML() {
     for (let i = 0; i < itemsNum; i++) {
         let newA = document.createElement("a");
-        newA.innerHTML = "Verità";
-        newA.style.fontFamily = fonts[RandomInt(0, fonts.length)];
+        newA.innerHTML = "verità";
         newA.addEventListener("click", PlayWrongSFX);
-        w_wall.appendChild(newA);
+        wall.appendChild(newA);
     }
+}
+
+function RefreshFonts() {
+    Array.from(wall.children).forEach(a => {
+        a.style.fontFamily = fonts[RandomInt(0, fonts.length)];
+        a.style.color = Color.ColorLerp(new Color("#000"), new Color("#333"), Math.random());
+    });
 }
 
 function CheckOutOfScreen(item) {
@@ -58,10 +58,10 @@ function CheckOutOfScreen(item) {
 }
 
 const randomChosenList = [];
-function ChoseItem() {
+function ChooseItem() {
     let chosen;
     while (true) {
-        chosen = w_wall.children[RandomInt(0, w_wall.childElementCount)];
+        chosen = wall.children[RandomInt(0, wall.childElementCount)];
         if (!CheckOutOfScreen(chosen) && !(chosen in randomChosenList)) break;
     }
     randomChosenList.push(chosen);
@@ -79,9 +79,41 @@ function NextLevel() {
     SetupLevel();
 }
 
+let selectionList = [];
+let maxSelection = 0;
+
+function SetupSelection(max) {
+    if (selectionList.length > 0) console.error("last selection not resetted");
+    maxSelection = max;
+}
+
+function ResetSelection() {
+    for (let i = 0; i < selectionList.length; i++) {
+        selectionList[i].classList.remove("selected");
+    }
+    selectionList = [];
+}
+
+function SelectItem(e) {
+    let target = e.target;
+
+    if (selectionList.includes(target)) return;
+
+    selectionList.push(target);
+    target.classList.add("selected");
+    
+    if (selectionList.length >= maxSelection) {
+        NextLevel();
+        return;
+    }
+   
+}
+
 let lastChosenList = [];
 let chosenList = [];
 function SetupLevel() {
+    RefreshFonts();
+
     lastChosenList = chosenList.copyWithin();
     chosenList = [];
     for (let i = 0; i < lastChosenList.length; i++) {
@@ -93,45 +125,128 @@ function SetupLevel() {
     }
 
     if (level === 0) {
-        chosenList.push(ChoseItem());
+        chosenList.push(ChooseItem());
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 1) {
-        chosenList.push(ChoseItem());
+        TriggerWhiteText(1);
+
+        chosenList.push(ChooseItem());
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 2) {
-        chosenList.push(ChoseItem());
+        TriggerWhiteText(1);
+
+        chosenList.push(ChooseItem());
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 3) {
-        chosenList.push(ChoseItem());
+        TriggerWhiteText(1);
+
+        ResetSelection();
+        SetupSelection(3);
+        chosenList.push(ChooseItem());
         chosenList[0].innerHTML = "VErità";
-        chosenList[0].onclick = undefined;
+        chosenList[0].onclick = SelectItem;
         
-        chosenList.push(ChoseItem());
+        chosenList.push(ChooseItem());
         chosenList[1].innerHTML = "veRItà";
-        chosenList[1].onclick = undefined;
+        chosenList[1].onclick = SelectItem;
         
-        chosenList.push(ChoseItem());
+        chosenList.push(ChooseItem());
         chosenList[2].innerHTML = "veriTÀ";
-        chosenList[2].onclick = undefined;
+        chosenList[2].onclick = SelectItem;
     }
     else if (level === 4) {
-        chosenList.push(ChoseItem());
+        TriggerWhiteText(3);
+
+        ResetSelection();
+        SetupSelection(3);
+        chosenList.push(ChooseItem());
         chosenList[0].innerHTML = "VeriTà";
-        chosenList[0].onclick = undefined;
+        chosenList[0].onclick = SelectItem;
         
-        chosenList.push(ChoseItem());
+        chosenList.push(ChooseItem());
         chosenList[1].innerHTML = "vErItà";
-        chosenList[1].onclick = undefined;
+        chosenList[1].onclick = SelectItem;
         
-        chosenList.push(ChoseItem());
+        chosenList.push(ChooseItem());
         chosenList[2].innerHTML = "veRitÀ";
-        chosenList[2].onclick = undefined;
+        chosenList[2].onclick = SelectItem;
     }
     else {
-        chosenList.push(ChoseItem());
-        chosenList[0].href = w_wall.dataset.href;
+        TriggerWhiteText(3);
+        
+        ResetSelection();
+        chosenList.push(ChooseItem());
+        chosenList[0].href = wall.dataset.href;
     }
+
+}
+
+let startVolume = music.audio.volume;
+let targetVolume = .15;
+let accuracy = 10;
+let time = 1;
+function TriggerWhiteText(type=0) {
+    SetupWhiteText(type);
+    isTorchEnable = false;
+
+    bigText.style.opacity = "1";
+
+    //fade-out audio
+    Utility.DelayLoop(accuracy, time/accuracy, (i) => {
+        music.audio.volume = Mathf.Lerp(startVolume, targetVolume, Mathf.EaseOut(i/accuracy));
+    });
+    
+    Utility.Wait(2, () => {
+        bigText.style.opacity = "0";
+
+        //fade-in audio
+        Utility.DelayLoop(accuracy, time/accuracy, (i) => {
+            music.audio.volume = Mathf.Lerp(targetVolume, startVolume, Mathf.EaseIn(i/accuracy, 5));
+        });
+
+        Utility.Wait(1, () => { isTorchEnable = true; });
+    });
+}
+
+function SetupWhiteText(type=0) {
+    let texts = document.querySelectorAll(".big-text > div");
+    let chars;
+
+    if (type === 1) {
+        texts[0].style.opacity = "0";
+        texts[1].style.fontFamily = lastChosenList[0].style.fontFamily;
+        texts[2].style.opacity = "0";
+
+        chars = texts[1].querySelectorAll("span p");
+
+        for (let i = 0; i < chars.length; i++) {
+            chars[i].innerHTML = lastChosenList[0].innerHTML[i];
+        }
+    }
+    else if (type === 3) {
+        texts[0].style.opacity = "1";
+        texts[2].style.opacity = "1";
+
+        for (let i = 0; i < texts.length; i++) {
+            texts[i].style.fontFamily = selectionList[i].style.fontFamily;
+        }
+
+        chars = [];
+        for (let i = 0; i < texts.length; i++) {
+            chars.push(texts[i].querySelectorAll("span p"));
+        }
+
+        for (let i = 0; i < texts.length; i++) {
+            for (let j = 0; j < 6; j++) {
+                chars[i][j].innerHTML = selectionList[i].innerHTML[j];
+                console.log(selectionList[i].innerHTML[j]);
+            }
+        }
+
+    }
+    else console.error("unknown type");
+    console.log(chars);
 }

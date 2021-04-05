@@ -1,16 +1,8 @@
-/********* PARAMETERS *********/
-const f_wallSelector = ".wall";
-
-/********* REFERENCES *********/
-let wall;
-
 /********* STATES *********/
-let isTorchEnable = false;
+let isTorchOn = false;
 
 /********* CODE *********/
 window.addEventListener("load", () => {
-    wall = document.querySelector(f_wallSelector);
-
     SetupEventListeners();
 });
 
@@ -26,7 +18,7 @@ function SetupEventListeners() {
             if ((new Date().getTime() - touchtime) < delay) {
                 clearTimeout(action);
 
-                TurnTorch();
+                if (isTorchEnable) TurnTorch();
                 
                 touchtime = 0;
             }
@@ -60,15 +52,15 @@ function SetupEventListeners() {
         });
         
         window.addEventListener("mousedown", e => {
-            if (e.button === 2) TurnTorch();
+            if (e.button === 2 && isTorchEnable) TurnTorch();
             SetTorchlightPosition(GetMousePos(undefined));
         });
     }
 }
 
 function TurnTorch() {
-    isTorchEnable = !isTorchEnable;
-    if (isTorchEnable) PlayAudio(torchOn_SFX);
+    isTorchOn = !isTorchOn;
+    if (isTorchOn) PlayAudio(torchOn_SFX);
     else PlayAudio(torchOff_SFX);
 }
 
@@ -96,7 +88,7 @@ function GetMousePos(e) {
 
 function SetTorchlightPosition(cursorPos) {
     let path;
-    if (isTorchEnable) {
+    if (isTorchOn) {
         path = "circle(" + torchRadius + "px at " + cursorPos.x + "px " + cursorPos.y + "px)";
         TorchOn();
     }
@@ -108,8 +100,8 @@ function SetTorchlightPosition(cursorPos) {
 }
 
 function TorchOn() {
-    if (!isTorchEnable) {
-        isTorchEnable = true;
+    if (!isTorchOn) {
+        isTorchOn = true;
         PlayAudio(torchOn_SFX);
     }
     pointer.style.opacity = "100%";
@@ -118,8 +110,8 @@ function TorchOn() {
 }
 
 function TorchOff() {
-    if (isTorchEnable) {
-        isTorchEnable = false;
+    if (isTorchOn) {
+        isTorchOn = false;
         PlayAudio(torchOff_SFX);
     }
     pointer.style.opacity = "0%";

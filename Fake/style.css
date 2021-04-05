@@ -2,6 +2,10 @@
 
 :root {
     --page-width: 80%;
+    --color-body: #ffffff;
+    --color-page: #cccccc;
+    --color-header: #cccccc;
+    --color-dark: #979797;
 }
 
 * {
@@ -11,29 +15,27 @@
     font-family: 'Playfair Display', serif;
 }
 
-img {
-    filter: grayscale(100%);
-}
+img, p, h1, h2 {filter: grayscale(100%);}
 
-p, h1, h2 {
-    filter: grayscale(100%);
-}
+body {background-color: var(--color-body);}
 
-html, body {
-    background-color: #000;
-}
+.page > * {filter: blur(.6px);}
 
 .page {
     margin: auto;
     width: var(--page-width);
     height: fit-content;
-
-    background-color: #fff;
+    /*
+    background: url(img/paper5.jpg);
+    background-position: center;
+    background-size: cover;
+    */
+    background-color: var(--color-page);
 }
 
 header {
     position: fixed;
-    padding-top: 8px;
+    padding-top: 7px;
 
     height: 80px;
     width: var(--page-width);
@@ -43,13 +45,12 @@ header {
     text-align: center;
     z-index: 10;
 
-    color: #000;
-    background-color: #ccc;
+    background-color: var(--color-header);
 }
 
 .gray-zone {
     height:200px;
-    background-color: rgb(167, 167, 167);
+    background-color: var(--color-dark);
 }
 
 .title-text {
@@ -97,13 +98,16 @@ header {
 }
 
 .adv-section {
+    background-color: var(--color-dark);
     position: sticky;
     top: 80px;
+
+    padding: 5px 20px;
 
     margin-left: 10px;
     margin-right: 100px;
 
-    width: 300px;
+    width: 400px;
     height: fit-content;
 }
 
@@ -114,6 +118,7 @@ header {
 .adv h2 {
     margin: auto;
     text-align: center;
+    margin-bottom: 8px; 
 }
 
 .adv img {
@@ -121,10 +126,19 @@ header {
     width: 100%;
 }
 
+.adv img:hover {
+    filter: opacity(60%) grayscale(100%);
+}
 
-@media only screen and (max-width: 999px) {
+@media only screen and (max-width: 1299px) {
     :root {
         --page-width: 100%;
+    }
+    .adv-section {
+        margin-right: 40px;
+    }
+    .par-section {
+        margin-left: 20px;
     }
 }
 

@@ -1,12 +1,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cinzel&family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sevillana&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 
+@import url('https://fonts.googleapis.com/css2?family=B612+Mono&display=swap');
+
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
@@ -20,8 +22,8 @@ body, html, .wall {
 	position: relative;
     overflow: hidden;
 
-    min-width: 100vw;
-    min-height: 100vh;
+    width: 100vw;
+    height: 100vh;
 }
 
 .pointer {
@@ -35,7 +37,50 @@ body, html, .wall {
     opacity: 0%;
 }
 
+.big-text {
+    opacity: 0;
+
+    width: 70%;
+
+    position: absolute;
+    left: 50vw;
+    top: 50vh;
+    transform: translate(-50%,-50%);
+
+    padding-bottom: 6vh;
+
+    font-family: 'B612 Mono', monospace;
+
+    transition: opacity ease-in-out 1s;
+}
+
+.big-text > div {
+    display: flex;
+    justify-content: center;
+}
+
+.big-text span {
+    padding: 20px 10px;
+    margin: 5px;
+
+    width: 16%;
+    height: 180px;
+    
+    border: #ddd 2px solid;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.big-text span p {
+    text-align: center;
+    color: #ddd;
+    font-size: 10em;
+}
+
 .wall {
+    filter: blur(0px);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -52,13 +97,34 @@ body, html, .wall {
 
 .chosen {
     text-decoration: underline;
-    color: #000;
+    color: #000 !important;
     font-weight: bold;
 }
+
+.selected {
+    text-shadow: #333 0 0 20px;
+}
+
+.blur, .blur * {
+    filter: blur(.5px);
+}
+
 /*
-font-family: 'Cinzel', serif;
 font-family: 'Dancing Script', cursive;
 font-family: 'Grenze Gotisch', cursive;
 font-family: 'Sevillana', cursive;
 font-family: 'Great Vibes', cursive;
 */
+
+@media only screen and (max-width: 1099px) {
+    
+    .big-text {
+        width: 80%;
+        font-size: 1.8vw;
+    }
+
+    .big-text span {
+        height: 20vw;
+    }
+
+}
