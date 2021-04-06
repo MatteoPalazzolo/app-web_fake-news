@@ -1,9 +1,15 @@
+/*
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Grenze+Gotisch:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sevillana&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+*/
 
-@import url('https://fonts.googleapis.com/css2?family=B612+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Tegomin&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Charm&display=swap');
+
 
 * {
     margin: 0;
@@ -49,9 +55,7 @@ body, html, .wall {
 
     padding-bottom: 6vh;
 
-    font-family: 'B612 Mono', monospace;
-
-    transition: opacity ease-in-out 1s;
+    transition: opacity ease-in-out .8s;
 }
 
 .big-text > div {
@@ -71,14 +75,13 @@ body, html, .wall {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    transition: transform 1s ease-out;/*
-    transform: translateY(190px);*/
+    
+    transition: transform 1s ease-in, border-color .8s ease-out;
 }
 
-.big-text div span p {
+.big-text div span p {/*
     position: relative;
-    bottom: -10px;
+    bottom: -10px;*/
 
     text-align: center;
     color: #ddd;
@@ -120,6 +123,13 @@ font-family: 'Dancing Script', cursive;
 font-family: 'Grenze Gotisch', cursive;
 font-family: 'Sevillana', cursive;
 font-family: 'Great Vibes', cursive;
+*/
+
+/*
+'New Tegomin', serif
+'Indie Flower', cursive
+'Caveat', cursive
+'Charm', cursive
 */
 
 @media only screen and (max-width: 1099px) {

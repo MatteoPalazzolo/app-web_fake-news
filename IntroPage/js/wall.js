@@ -1,9 +1,16 @@
 /********* PARAMETERS *********/
+/* OLD
 const fonts = [
     "'Dancing Script', cursive",
     "'Grenze Gotisch', cursive",
     "'Sevillana', cursive",
     "'Great Vibes', cursive"
+];*/
+const fonts = [
+    "'New Tegomin', serif",
+    "'Indie Flower', cursive",
+    "'Caveat', cursive",
+    "'Charm', cursive"
 ];
 
 /********* STATES *********/
@@ -131,14 +138,14 @@ function SetupLevel() {
         TriggerWhiteText(1);
 
         chosenList.push(ChooseItem());
-        chosenList[0].innerHTML = "vERiTà";
+        chosenList[0].innerHTML = "VµR¿Tà";
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 2) {
         TriggerWhiteText(1);
 
         chosenList.push(ChooseItem());
-        chosenList[0].innerHTML = "V¥RiTà";
+        chosenList[0].innerHTML = "©µ¶¿×à";
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 3) {
@@ -147,15 +154,15 @@ function SetupLevel() {
         ResetSelection();
         SetupSelection(3);
         chosenList.push(ChooseItem());
-        chosenList[0].innerHTML = "VErità";
+        chosenList[0].innerHTML = "VeRità";
         chosenList[0].onclick = SelectItem;
         
         chosenList.push(ChooseItem());
-        chosenList[1].innerHTML = "veRItà";
+        chosenList[1].innerHTML = "verItÀ";
         chosenList[1].onclick = SelectItem;
         
         chosenList.push(ChooseItem());
-        chosenList[2].innerHTML = "veriTÀ";
+        chosenList[2].innerHTML = "vEriTà";
         chosenList[2].onclick = SelectItem;
     }
     else if (level === 4) {
@@ -207,8 +214,11 @@ function TriggerWhiteText(type=0) {
         music.audio.volume = Mathf.Lerp(startVolume, targetVolume, Mathf.EaseOut(i/accuracy));
     });
 
-    //cross texts
-    if (type === 3) {
+    if (type === 1) 
+        Utility.DelayLoop(6, .5, i => {
+            chars[1][i].parentElement.style.borderColor = "#0000";
+        });
+    else if (type === 3) {
         let verticalChars = [];
         for (let i = 0; i < 6; i++){ 
             let vertical = [];
@@ -217,6 +227,24 @@ function TriggerWhiteText(type=0) {
             verticalChars.push(vertical);
         }
 
+        Utility.DelayLoop(6, 1, i => {
+            if ("VERITÀ"[i] === verticalChars[i][0].innerHTML)
+                for (let j = 0; j < 3; j++) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
+                }
+            else if ("VERITÀ"[i] === verticalChars[i][1].innerHTML) 
+                for (let j = 0; j < 3; j++) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(0)";
+                }
+            else if ("VERITÀ"[i] === verticalChars[i][2].innerHTML)
+                for (let j = 0; j < 3; j++) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(-190px)";
+                }
+            else
+                console.error("something went wrong!");
+        });
+
+        /*
         Utility.Wait(1, () => {
             const truth = "VERITÀ";
             for (let i = 0; i < 6; i++) {
@@ -235,20 +263,25 @@ function TriggerWhiteText(type=0) {
                 else
                     console.error("something went wrong!");
             }
-        })        
+        });*/
     }
-    
-    Utility.Wait(3, () => {
+    let wait = (type === 1) ? 4 : 7; 
+    Utility.Wait(wait, () => {
         //set invisible
-        bigText.style.opacity = "0";
-
+        for (let i = 0; i < 3; i++) {
+            for (let j = 0; j < 6; j++) {
+                chars[i][j].parentElement.style.borderColor = "#fff";
+            }
+        }
+        Utility.Wait(1, () => {bigText.style.opacity = "0";});
+        
         //fade-in audio
         Utility.DelayLoop(accuracy, fadeTime/accuracy, (i) => {
             music.audio.volume = Mathf.Lerp(targetVolume, startVolume, Mathf.EaseIn(i/accuracy, 5));
         });
 
         //enable torch
-        Utility.Wait(1, () => { isTorchEnable = true; });
+        Utility.Wait(1.8, () => { isTorchEnable = true; });
     });
 }
 
@@ -272,7 +305,7 @@ function SetupWhiteText(type=0) {
             texts[i].style.fontFamily = selectionList[i].style.fontFamily;
         }
 
-        //set texts
+        //set text
         for (let i = 0; i < texts.length; i++) {
             for (let j = 0; j < 6; j++) {
                 chars[i][j].innerHTML = selectionList[i].innerHTML[j];
