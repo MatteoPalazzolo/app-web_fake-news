@@ -30,11 +30,17 @@ let isTorchEnable = true;
 /********* REFERENCES *********/
 let wall;
 let bigText;
+let texts;
+let chars = [];
 
 /********* CODE *********/
 window.addEventListener("load", () => {
     wall = document.querySelector(".wall");
     bigText = document.querySelector(".big-text");
+    texts = document.querySelectorAll(".big-text > div");
+    for (let i = 0; i < texts.length; i++) {
+        chars.push(texts[i].querySelectorAll("span p"));
+    }
 
     isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
     if (isMobile) {

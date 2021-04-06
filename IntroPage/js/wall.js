@@ -62,7 +62,7 @@ function ChooseItem() {
     let chosen;
     while (true) {
         chosen = wall.children[RandomInt(0, wall.childElementCount)];
-        if (!CheckOutOfScreen(chosen) && !(chosen in randomChosenList)) break;
+        if (!CheckOutOfScreen(chosen) && !(randomChosenList.includes(chosen))) break;
     }
     randomChosenList.push(chosen);
 
@@ -112,8 +112,6 @@ function SelectItem(e) {
 let lastChosenList = [];
 let chosenList = [];
 function SetupLevel() {
-    RefreshFonts();
-
     lastChosenList = chosenList.copyWithin();
     chosenList = [];
     for (let i = 0; i < lastChosenList.length; i++) {
@@ -126,18 +124,21 @@ function SetupLevel() {
 
     if (level === 0) {
         chosenList.push(ChooseItem());
+        chosenList[0].innerHTML = "VERITÀ";
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 1) {
         TriggerWhiteText(1);
 
         chosenList.push(ChooseItem());
+        chosenList[0].innerHTML = "vERiTà";
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 2) {
         TriggerWhiteText(1);
 
         chosenList.push(ChooseItem());
+        chosenList[0].innerHTML = "V¥RiTà";
         chosenList[0].onclick = NextLevel;
     }
     else if (level === 3) {
@@ -163,90 +164,120 @@ function SetupLevel() {
         ResetSelection();
         SetupSelection(3);
         chosenList.push(ChooseItem());
-        chosenList[0].innerHTML = "VeriTà";
+        chosenList[0].innerHTML = "V¥¢µT¿";
         chosenList[0].onclick = SelectItem;
         
         chosenList.push(ChooseItem());
-        chosenList[1].innerHTML = "vErItà";
+        chosenList[1].innerHTML = "µE¬I¿¥";
         chosenList[1].onclick = SelectItem;
         
         chosenList.push(ChooseItem());
-        chosenList[2].innerHTML = "veRitÀ";
+        chosenList[2].innerHTML = "¥µRµ¿À";
         chosenList[2].onclick = SelectItem;
     }
     else {
         TriggerWhiteText(3);
-        
         ResetSelection();
+
         chosenList.push(ChooseItem());
         chosenList[0].href = wall.dataset.href;
     }
 
+    for (let i = 0; i < lastChosenList.length; i++) {
+        lastChosenList[i].innerHTML = "verità";
+    }
+    
+    RefreshFonts();
 }
 
 let startVolume = music.audio.volume;
 let targetVolume = .15;
 let accuracy = 10;
-let time = 1;
+let fadeTime = 1;
 function TriggerWhiteText(type=0) {
     SetupWhiteText(type);
+    //disable torch
     isTorchEnable = false;
 
+    //set visible
     bigText.style.opacity = "1";
 
     //fade-out audio
-    Utility.DelayLoop(accuracy, time/accuracy, (i) => {
+    Utility.DelayLoop(accuracy, fadeTime/accuracy, (i) => {
         music.audio.volume = Mathf.Lerp(startVolume, targetVolume, Mathf.EaseOut(i/accuracy));
     });
+
+    //cross texts
+    if (type === 3) {
+        let verticalChars = [];
+        for (let i = 0; i < 6; i++){ 
+            let vertical = [];
+            for (let j = 0; j < 3; j++)
+                vertical.push(chars[j][i]);
+            verticalChars.push(vertical);
+        }
+
+        Utility.Wait(1, () => {
+            const truth = "VERITÀ";
+            for (let i = 0; i < 6; i++) {
+                if (truth[i] === verticalChars[i][0].innerHTML)
+                    for (let j = 0; j < 3; j++) {
+                        verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
+                    }
+                else if (truth[i] === verticalChars[i][1].innerHTML) 
+                    for (let j = 0; j < 3; j++) {
+                        verticalChars[i][j].parentElement.style.transform = "translateY(0)";
+                    }
+                else if (truth[i] === verticalChars[i][2].innerHTML)
+                    for (let j = 0; j < 3; j++) {
+                        verticalChars[i][j].parentElement.style.transform = "translateY(-190px)";
+                    }
+                else
+                    console.error("something went wrong!");
+            }
+        })        
+    }
     
-    Utility.Wait(2, () => {
+    Utility.Wait(3, () => {
+        //set invisible
         bigText.style.opacity = "0";
 
         //fade-in audio
-        Utility.DelayLoop(accuracy, time/accuracy, (i) => {
+        Utility.DelayLoop(accuracy, fadeTime/accuracy, (i) => {
             music.audio.volume = Mathf.Lerp(targetVolume, startVolume, Mathf.EaseIn(i/accuracy, 5));
         });
 
+        //enable torch
         Utility.Wait(1, () => { isTorchEnable = true; });
     });
 }
 
 function SetupWhiteText(type=0) {
-    let texts = document.querySelectorAll(".big-text > div");
-    let chars;
-
     if (type === 1) {
         texts[0].style.opacity = "0";
         texts[1].style.fontFamily = lastChosenList[0].style.fontFamily;
         texts[2].style.opacity = "0";
 
-        chars = texts[1].querySelectorAll("span p");
-
-        for (let i = 0; i < chars.length; i++) {
-            chars[i].innerHTML = lastChosenList[0].innerHTML[i];
+        for (let i = 0; i < 6; i++) {
+            chars[1][i].innerHTML = lastChosenList[0].innerHTML[i];
         }
     }
     else if (type === 3) {
+        //set visible
         texts[0].style.opacity = "1";
         texts[2].style.opacity = "1";
 
+        //set font
         for (let i = 0; i < texts.length; i++) {
             texts[i].style.fontFamily = selectionList[i].style.fontFamily;
         }
 
-        chars = [];
-        for (let i = 0; i < texts.length; i++) {
-            chars.push(texts[i].querySelectorAll("span p"));
-        }
-
+        //set texts
         for (let i = 0; i < texts.length; i++) {
             for (let j = 0; j < 6; j++) {
                 chars[i][j].innerHTML = selectionList[i].innerHTML[j];
-                console.log(selectionList[i].innerHTML[j]);
             }
         }
-
     }
     else console.error("unknown type");
-    console.log(chars);
 }

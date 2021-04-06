@@ -59,7 +59,7 @@ body, html, .wall {
     justify-content: center;
 }
 
-.big-text span {
+.big-text div span {
     padding: 20px 10px;
     margin: 5px;
 
@@ -71,9 +71,15 @@ body, html, .wall {
     display: flex;
     justify-content: center;
     align-items: center;
+
+    transition: transform 1s ease-out;/*
+    transform: translateY(190px);*/
 }
 
-.big-text span p {
+.big-text div span p {
+    position: relative;
+    bottom: -10px;
+
     text-align: center;
     color: #ddd;
     font-size: 10em;
