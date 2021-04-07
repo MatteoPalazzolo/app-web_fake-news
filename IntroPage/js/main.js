@@ -1,6 +1,6 @@
 /****************** IMPORT SOUNDS ******************/
-const music = {audio: new Audio("sound/music3.mp3"), playing: false};
-music.audio.volume = .3;
+const music = {audio: new Audio("sound/fake-music.mp3"), playing: false};
+music.audio.volume = .2;
 music.audio.loop = true;
 
 const wrong_SFX = {audio: new Audio("sound/wrong-violin.wav"), playing: false};
@@ -25,7 +25,8 @@ let itemsNum;
 
 /********* STATES *********/
 let isMobile = false;
-let isTorchEnable = true;
+let isTorchEnable = false;
+let isStarted = false;
 
 /********* REFERENCES *********/
 let wall;
@@ -38,9 +39,11 @@ window.addEventListener("load", () => {
     wall = document.querySelector(".wall");
     bigText = document.querySelector(".big-text");
     texts = document.querySelectorAll(".big-text > div");
-    for (let i = 0; i < texts.length; i++) {
+    for (let i = 0; i < texts.length; i++)
         chars.push(texts[i].querySelectorAll("span p"));
-    }
+    Utility.Wait(9, _ => {
+        Utility.Wait(.8, _ => {isTorchEnable = isStarted = true;});
+    });
 
     isMobile = navigator.userAgent.toLowerCase().match(/mobile/i);
     if (isMobile) {

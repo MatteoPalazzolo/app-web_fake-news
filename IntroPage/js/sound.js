@@ -1,6 +1,10 @@
 /****************** STATES ******************/
-window.addEventListener("click", e => PlayAudio(music, true));
-window.addEventListener("mousedown", e => PlayAudio(music, true));
+window.addEventListener("click", e => {
+    if (isStarted) PlayAudio(music, true);
+});
+window.addEventListener("mousedown", e => {
+    if (isStarted) PlayAudio(music, true);
+});
 
 function PlayAudio(audio_obj, music=false) {
     if (!audio_obj.playing) {

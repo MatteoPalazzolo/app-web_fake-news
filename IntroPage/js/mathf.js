@@ -124,16 +124,22 @@ class Vector2 {
 class Utility {
 
     static Wait = async (sec=0, callback) => {
-        await new Promise(r => setTimeout(() => {
-            r();
-            callback();
-        }, sec * 1000));
+        await new Promise(r => setTimeout(callback, sec * 1000));
     }
 
-    static DelayLoop = async (steps=0, sec=0, callback) => {
-        for (let i = 0; i <= steps ; i++) {        
-           await new Promise(resolve => setTimeout(resolve, sec * 1000));
-           callback(i);
+    static DelayLoopEqual = async (steps=0, sec=0, callback, skip=()=>{return false;}) => {
+        for (let i = 0; i <= steps ; i++) {
+            if (skip(i)) continue;
+            await new Promise(resolve => setTimeout(resolve, sec * 1000));
+            callback(i);
+        }
+    }
+
+    static DelayLoop = async (steps=0, sec=0, callback, skip=()=>{return false;}) => {
+        for (let i = 0; i < steps ; i++) {
+            if (skip(i)) continue;
+            await new Promise(resolve => setTimeout(resolve, sec * 1000));
+            callback(i);
         }
     }
 

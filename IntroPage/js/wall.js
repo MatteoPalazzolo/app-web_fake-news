@@ -198,7 +198,7 @@ function SetupLevel() {
 }
 
 let startVolume = music.audio.volume;
-let targetVolume = .15;
+let targetVolume = .05;
 let accuracy = 10;
 let fadeTime = 1;
 function TriggerWhiteText(type=0) {
@@ -210,7 +210,7 @@ function TriggerWhiteText(type=0) {
     bigText.style.opacity = "1";
 
     //fade-out audio
-    Utility.DelayLoop(accuracy, fadeTime/accuracy, (i) => {
+    Utility.DelayLoopEqual(accuracy, fadeTime/accuracy, (i) => {
         music.audio.volume = Mathf.Lerp(startVolume, targetVolume, Mathf.EaseOut(i/accuracy));
     });
 
@@ -226,8 +226,9 @@ function TriggerWhiteText(type=0) {
                 vertical.push(chars[j][i]);
             verticalChars.push(vertical);
         }
-
-        Utility.DelayLoop(6, 1, i => {
+        
+        Utility.DelayLoop(6, 1, 
+        i => {
             if ("VERITÀ"[i] === verticalChars[i][0].innerHTML)
                 for (let j = 0; j < 3; j++) {
                     verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
@@ -240,32 +241,13 @@ function TriggerWhiteText(type=0) {
                 for (let j = 0; j < 3; j++) {
                     verticalChars[i][j].parentElement.style.transform = "translateY(-190px)";
                 }
-            else
-                console.error("something went wrong!");
+            else console.error("something went wrong!");
+        },
+        i => {
+            return false;
         });
-
-        /*
-        Utility.Wait(1, () => {
-            const truth = "VERITÀ";
-            for (let i = 0; i < 6; i++) {
-                if (truth[i] === verticalChars[i][0].innerHTML)
-                    for (let j = 0; j < 3; j++) {
-                        verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
-                    }
-                else if (truth[i] === verticalChars[i][1].innerHTML) 
-                    for (let j = 0; j < 3; j++) {
-                        verticalChars[i][j].parentElement.style.transform = "translateY(0)";
-                    }
-                else if (truth[i] === verticalChars[i][2].innerHTML)
-                    for (let j = 0; j < 3; j++) {
-                        verticalChars[i][j].parentElement.style.transform = "translateY(-190px)";
-                    }
-                else
-                    console.error("something went wrong!");
-            }
-        });*/
     }
-    let wait = (type === 1) ? 4 : 7; 
+    let wait = (type === 1) ? 4 : 7;
     Utility.Wait(wait, () => {
         //set invisible
         for (let i = 0; i < 3; i++) {
@@ -276,7 +258,7 @@ function TriggerWhiteText(type=0) {
         Utility.Wait(1, () => {bigText.style.opacity = "0";});
         
         //fade-in audio
-        Utility.DelayLoop(accuracy, fadeTime/accuracy, (i) => {
+        Utility.DelayLoopEqual(accuracy, fadeTime/accuracy, (i) => {
             music.audio.volume = Mathf.Lerp(targetVolume, startVolume, Mathf.EaseIn(i/accuracy, 5));
         });
 

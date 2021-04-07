@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+HK:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+.intro {
+    position: absolute;
+    
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    margin: auto;
+
+    max-width: fit-content;
+
+    pointer-events: none;
+}
+
+/****************** WELCOME ******************/
+.welcome {
+    width: 80%;
+    height: auto;
+
+    padding-bottom: 50px;
+
+    display: grid;
+    gap: 10px;
+    grid-template-columns: 3fr 1fr;
+    grid-template-rows: 28fr 1fr 28fr;
+
+    animation: fade-out 2.5s ease-out 6.5s forwards;
+}
+
+.intro-text p {
+    color: #ddd;
+    width: fit-content;
+    height: fit-content;
+}
+
+.intro-line {
+    opacity: 0;
+
+    height: auto;
+    grid-column: 1 / span 2;
+
+    border-radius: 4px;
+    background-color: #ddd;
+    animation: fade-in .5s ease-in 1s forwards;
+}
+
+.text-1 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+
+    font-size: 8em;
+    font-family: 'Noto Sans HK', sans-serif;
+    transform: translateY(-100vh);
+    animation: anim-text-1 1.1s linear 1.5s forwards;
+}
+
+.text-1 p {
+    position: relative;
+    top: 35px;
+    left: 40px;
+}
+
+.text-2 {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-end;
+
+    transform: translateX(100vw);
+    font-size: 6em;
+    font-family: 'Titillium Web', sans-serif;
+    animation: anim-text-2 2.2s ease-in 1.8s forwards;
+}
+
+.text-2 p {
+    position: relative;
+    top: 35px;
+    left: 50px;
+}
+
+.text-3 {
+    margin: 0 auto;
+    grid-column: 1 / span 2;
+
+    transform: translateY(100vh);
+
+    font-size: 7em;
+    font-family: 'Dancing Script', cursive;
+    animation: anim-text-3 2.4s ease-in 3s forwards;
+}
+
+.text-3 p {
+    position: relative;
+    bottom: 25px;
+}
+
+@keyframes anim-text-1 {
+    0% {transform: translateY(-100vh);}
+    100% {transform: translateY(0);}
+}
+
+@keyframes anim-text-2 {
+    0% {transform: translateX(100vw);}
+    100% {transform: translateX(0);}
+}
+
+@keyframes anim-text-3 {
+    0% {transform: translateY(100vh);}
+    100% {transform: translateY(0);}
+}
+
+/****************** MADE BY ******************//*
+.made-by {
+    width: 80%;
+    height: auto;
+    padding-bottom: 50px;
+
+    opacity: 0;
+
+    animation: fade-in 3s ease-in 7s forwards, fade-out 3s ease-out 13s forwards;
+}
+
+.made-by p {
+    color: #ddd;
+    text-align: center;
+    font-size: 5em;
+    font-family: 'Titillium Web', sans-serif;    
+}
+*/
+
+@keyframes fade-in {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+
+@keyframes fade-out {
+    from {opacity: 1;}
+    to {opacity: 0;}
+}

@@ -43,6 +43,13 @@ body, html, .wall {
     opacity: 0%;
 }
 
+.intro {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+}
+
 .big-text {
     opacity: 0;
 
