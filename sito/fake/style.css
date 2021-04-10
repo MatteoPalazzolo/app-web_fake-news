@@ -3,8 +3,8 @@
 :root {
     --page-width: 80%;
     --color-body: #ffffff;
-    --color-page: #cccccc;
-    --color-header: #cccccc;
+    --color-page: #e0e0e0;
+    --color-header: #c4c4c4;
     --color-dark: #979797;
 }
 
@@ -15,7 +15,8 @@
     font-family: 'Playfair Display', serif;
 }
 
-img, p, h1, h2 {filter: grayscale(100%);}
+img, p, h1, h2 {filter: grayscale(100%);}/*
+img {pointer-events: none;}*/
 
 body {background-color: var(--color-body);}
 
@@ -24,7 +25,6 @@ body {background-color: var(--color-body);}
 .page {
     margin: auto;
     width: var(--page-width);
-    height: fit-content;
     /*
     background: url(img/paper5.jpg);
     background-position: center;
@@ -35,12 +35,12 @@ body {background-color: var(--color-body);}
 
 header {
     position: fixed;
-    padding-top: 7px;
+    padding-top: 8px;
 
-    height: 80px;
+    height: 90px;
     width: var(--page-width);
 
-    font-size: 3em;
+    font-size: 3.2em;
     font-weight: bold;
     text-align: center;
     z-index: 10;
@@ -100,7 +100,7 @@ header {
 .adv-section {
     background-color: var(--color-dark);
     position: sticky;
-    top: 80px;
+    top: 100px;
 
     padding: 5px 20px;
 
@@ -108,7 +108,7 @@ header {
     margin-right: 100px;
 
     width: 400px;
-    height: fit-content;
+    height: min-content;
 }
 
 .adv {
@@ -128,6 +128,7 @@ header {
 
 .adv img:hover {
     filter: opacity(60%) grayscale(100%);
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 1299px) {

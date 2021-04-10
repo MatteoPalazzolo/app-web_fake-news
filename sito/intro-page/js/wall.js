@@ -64,7 +64,7 @@ function CheckOutOfScreen(item) {
 	return out.any;
 }
 
-const randomChosenList = [];
+let randomChosenList = [];
 function ChooseItem() {
     let chosen;
     while (true) {
@@ -77,6 +77,7 @@ function ChooseItem() {
     chosen.addEventListener("click", PlayRightSFX);
     chosen.classList.add("chosen");
 
+    console.log(randomChosenList);
     return chosen;
 }
 
@@ -84,6 +85,7 @@ function NextLevel() {
     level++;
     TorchOff();
     SetupLevel();
+    torchCharge = 100;
 }
 
 let selectionList = [];
@@ -119,6 +121,7 @@ function SelectItem(e) {
 let lastChosenList = [];
 let chosenList = [];
 function SetupLevel() {
+    randomChosenList = [];
     lastChosenList = chosenList.copyWithin();
     chosenList = [];
     for (let i = 0; i < lastChosenList.length; i++) {
@@ -129,6 +132,36 @@ function SetupLevel() {
         item.addEventListener("click", PlayWrongSFX);
     }
 
+    dischargeSpeed = Mathf.Flip(Mathf.EaseIn(level / maxLevel)) * dischargeMult;
+    console.log(dischargeSpeed);
+
+    /********************** LEVEL **********************/
+    
+    /*
+    if (level === 0) {
+        ResetSelection();
+        SetupSelection(3);
+
+        chosenList.push(ChooseItem());
+        chosenList[0].innerHTML = "VeRità";
+        chosenList[0].onclick = SelectItem;
+        
+        chosenList.push(ChooseItem());
+        chosenList[1].innerHTML = "verItÀ";
+        chosenList[1].onclick = SelectItem;
+        
+        chosenList.push(ChooseItem());
+        chosenList[2].innerHTML = "vEriTà";
+        chosenList[2].onclick = SelectItem;
+    }
+    else {
+        TriggerWhiteText(3);
+        ResetSelection();
+
+        chosenList.push(ChooseItem());
+        chosenList[0].href = target_href;
+    }*/
+    
     if (level === 0) {
         chosenList.push(ChooseItem());
         chosenList[0].innerHTML = "VERITÀ";
@@ -185,9 +218,8 @@ function SetupLevel() {
     else {
         TriggerWhiteText(3);
         ResetSelection();
-
-        chosenList.push(ChooseItem());
-        chosenList[0].href = wall.dataset.href;
+        
+        // CONTINUE
     }
 
     for (let i = 0; i < lastChosenList.length; i++) {
@@ -198,7 +230,7 @@ function SetupLevel() {
 }
 
 let startVolume = music.audio.volume;
-let targetVolume = .05;
+let targetVolume = .08;
 let accuracy = 10;
 let fadeTime = 1;
 function TriggerWhiteText(type=0) {
@@ -226,12 +258,13 @@ function TriggerWhiteText(type=0) {
                 vertical.push(chars[j][i]);
             verticalChars.push(vertical);
         }
-        
+        /*
         Utility.DelayLoop(6, 1, 
         i => {
             if ("VERITÀ"[i] === verticalChars[i][0].innerHTML)
                 for (let j = 0; j < 3; j++) {
                     verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
+                    verticalChars[i][j].parentElement.style.borderColor = "#555";
                 }
             else if ("VERITÀ"[i] === verticalChars[i][1].innerHTML) 
                 for (let j = 0; j < 3; j++) {
@@ -245,11 +278,31 @@ function TriggerWhiteText(type=0) {
         },
         i => {
             return false;
+        });*/
+
+        Utility.DelayLoop(6, 1.6, i => {
+            for (let j = 0; j < 3; j++) {
+                if ("VERITÀ"[i] === verticalChars[i][0].innerHTML) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(190px)";
+                }
+                else if ("VERITÀ"[i] === verticalChars[i][1].innerHTML) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(0)";
+                }
+                else if ("VERITÀ"[i] === verticalChars[i][2].innerHTML) {
+                    verticalChars[i][j].parentElement.style.transform = "translateY(-190px)";
+                }
+                else console.error("something went wrong!");
+                Utility.Wait(1, () => {
+                    verticalChars[i][j].parentElement.style.borderColor = "#0000";
+                });
+            }
+        }, i => {
+            return false;
         });
     }
-    let wait = (type === 1) ? 4 : 7;
+    let wait = (type === 1) ? 4 : 12;
     Utility.Wait(wait, () => {
-        //set invisible
+        //set visible
         for (let i = 0; i < 3; i++) {
             for (let j = 0; j < 6; j++) {
                 chars[i][j].parentElement.style.borderColor = "#fff";

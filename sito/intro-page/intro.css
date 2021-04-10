@@ -4,30 +4,30 @@
 
 .intro {
     position: absolute;
-    
+
     left: 50%;
     top: 50%;
     transform: translate(-50%,-50%);
+
+    max-width: 800px;
+    height: fit-content;
+
+    padding-bottom: 50px;
     margin: auto;
-
-    max-width: fit-content;
-
+    
     pointer-events: none;
 }
 
 /****************** WELCOME ******************/
 .welcome {
-    width: 80%;
-    height: auto;
-
-    padding-bottom: 50px;
+    width: 100%;
 
     display: grid;
     gap: 10px;
     grid-template-columns: 3fr 1fr;
     grid-template-rows: 28fr 1fr 28fr;
 
-    animation: fade-out 2.5s ease-out 6.5s forwards;
+    animation: fade-out 2.5s ease-out 6.5s forwards, size-up 2.5s ease-in 6.5s forwards;
 }
 
 .intro-text p {
@@ -139,4 +139,9 @@
 @keyframes fade-out {
     from {opacity: 1;}
     to {opacity: 0;}
+}
+
+@keyframes size-up {
+    from {transform: scale(1);}
+    to {transform: scale(1.12);}
 }

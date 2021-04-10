@@ -16,7 +16,7 @@ class Color {
     static TwoDigits(num="00") {
         if (num.length == 2) return num;
         else if (num.length == 1) return "0" + num;
-        else console.error("something went wrong!");
+        else console.error(num, "something went wrong!");
     }
 
     static ColorToVector(color = "#000000") {
@@ -141,6 +141,11 @@ class Utility {
             await new Promise(resolve => setTimeout(resolve, sec * 1000));
             callback(i);
         }
+    }
+
+    static TogleClass(_element=new Image(), _class="") {
+        if (_element.classList.contains(_class)) _element.classList.remove(_class);
+        else _element.classList.add(_class);
     }
 
 }

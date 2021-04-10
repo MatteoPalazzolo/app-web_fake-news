@@ -1,6 +1,3 @@
-/********* STATES *********/
-let isTorchOn = false;
-
 /********* CODE *********/
 window.addEventListener("load", () => {
     SetupEventListeners();

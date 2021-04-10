@@ -83,7 +83,7 @@ body, html, .wall {
     justify-content: center;
     align-items: center;
     
-    transition: transform 1s ease-in, border-color .8s ease-out;
+    transition: transform 1s ease-in, border-color .4s ease-out;
 }
 
 .big-text div span p {/*
