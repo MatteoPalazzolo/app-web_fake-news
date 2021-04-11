@@ -25,8 +25,8 @@ let torchRadius;
 let itemsNum;
 
 /* Game */
-let dischargeMult = 10;
-let maxLevel = 5;
+const maxDuration = 5; //In S
+const maxLevel = 5;
 
 /********* STATES *********/
 /* General */

@@ -132,9 +132,8 @@ function SetupLevel() {
         item.addEventListener("click", PlayWrongSFX);
     }
 
-    dischargeSpeed = Mathf.Flip(Mathf.EaseIn(level / maxLevel)) * dischargeMult;
+    dischargeSpeed = Mathf.Flip(Mathf.EaseIn(level / maxLevel)) * (100 / maxDuration);
     console.log(dischargeSpeed);
-
     /********************** LEVEL **********************/
     
     /*

@@ -13,7 +13,6 @@ window.addEventListener("load", () => {
             torchCharge = 100;
             */
         }
-        console.log(torchCharge);
     }, .1 * 1000);
 });
 
