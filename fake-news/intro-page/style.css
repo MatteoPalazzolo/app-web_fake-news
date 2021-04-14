@@ -22,6 +22,8 @@ body {
     
     -webkit-user-select: none;
     user-select: none;
+
+    filter: grayscale(1);
 }
 
 body, html, .wall {
@@ -102,6 +104,8 @@ body, html, .wall {
     justify-content: center;
     background-color: #eee;
     opacity: 0%;
+/*
+    background: url("./images/wall1.jpg");*/
 }
 
 .wall a {

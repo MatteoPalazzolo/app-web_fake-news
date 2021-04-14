@@ -5,13 +5,9 @@ window.addEventListener("load", () => {
     setInterval(i => {
         if (!isTorchOn) return;
         if (torchCharge > 0) {torchCharge -= dischargeSpeed * .1; DischargeTorch();}
-        if (torchCharge <= 0) {
+        if (torchCharge <= 0 || dischargeSpeed === 0) {
             TorchOff();
             Utility.Wait(1, ()=>{ window.location.href = target_href; });
-            /*
-            SetupLevel();
-            torchCharge = 100;
-            */
         }
     }, .1 * 1000);
 });

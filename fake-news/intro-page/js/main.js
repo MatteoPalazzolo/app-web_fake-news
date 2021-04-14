@@ -25,7 +25,7 @@ let torchRadius;
 let itemsNum;
 
 /* Game */
-const maxDuration = 5; //In S
+const maxDuration = 40; //In S
 const maxLevel = 5;
 
 /********* STATES *********/
